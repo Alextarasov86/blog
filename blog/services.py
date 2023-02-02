@@ -43,7 +43,6 @@ def create_article(data):
     data['author'] = user
     upload_images = data.pop('images')
     if is_allowed_picture_count(upload_images):
-
         Article.objects.create(**data)
 
 
