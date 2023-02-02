@@ -22,50 +22,33 @@ ARTICLE_DATA = {
     ]
 }
 
-# class ArticleCreateTests(APITestCase):
-#     def setUp(self):
-#         self.factory = APIRequestFactory()
-#         self.view = ArticlesViewSet.as_view({'get': 'list', 'post': 'create'})
-#         self.url = '/v1/blog/articles/'
-#         self.user = User.objects.create(username='test1', email='alex_test@mail.ru', password='1q2w3e4r')
-#         self.category = Category.objects.create(title='cat_test_1')
-#
-#
-#     def test_create_article(self):
-#         article_test = {'title': 'article1', 'text': 'test_text', 'category': self.category.id, 'author': self.user}
-#
-#         request = self.factory.post(self.url, article_test)
-#         request.user = self.user
-#         response = self.view(request)
-#         print(response.data)
-#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-
-#
-#     def test_update_article(self):
-#         factory = APIRequestFactory()
-#         request = self.factory.put('/v1/blog/articles/3/', {'title': 'Статья 303'})
-#         request.user = self.user
-#         response = self.view(request)
-#         print(response.data)
-#         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-# #
-#
-# class CategoryTests(APITestCase):
-#     def setUp(self):
-#         Category.objects.create(title='test1')
-#     def test_category_list(self):
-#         response = self.client.get('/v1/blog/categories/')
-#         print(response.data)
-
-class ArticleCreateTest(APITestCase):
+class ArticleCreateTests(APITestCase):
     def setUp(self):
-        self.client = APIClient()
-        self.user = User.objects.create_user(username='test_user', password='M1W2E3')
-        self.client.force_authenticate(self.user)
+        self.factory = APIRequestFactory()
+        self.view = ArticlesViewSet.as_view({'get': 'list', 'post': 'create'})
+        self.url = '/v1/blog/articles/'
+        self.user = User.objects.create(username='test1', email='alex_test@mail.ru', password='1q2w3e4r')
         self.category = Category.objects.create(title='cat_test_1')
 
-    def test_create_articles(self):
-        url = '/v1/blog/articles/'
-        data = {'title': 'article1', 'text': 'test_text', 'category': self.category.id}
-        response = self.client.post(url, data)
+
+    def test_create_article(self):
+        article_test = {'title': 'article1', 'text': 'test_text', 'category': self.category.id, 'author': self.user}
+
+        request = self.factory.post(self.url, article_test)
+        request.user = self.user
+        response = self.view(request)
+        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+
+    def test_update_article(self):
+        factory = APIRequestFactory()
+        request = self.factory.put('/v1/blog/articles/3/', {'title': 'Статья 303'})
+        request.user = self.user
+        response = self.view(request)
+        print(response.data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+# #
+#
+#
+

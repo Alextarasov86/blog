@@ -195,7 +195,7 @@ class CommentsViewSet(viewsets.ModelViewSet):
 
 
 class CategoriesViewSet(viewsets.ModelViewSet):
-    # permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
+    permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     filter_backends = [DjangoFilterBackend]
